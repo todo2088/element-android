@@ -1,4 +1,4 @@
-package im.vector.matrix.android.thread;
+package im.vector.matrix.android.api.thread;
 
 import android.os.Handler;
 import android.os.Looper;
