@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 OpenMarket Ltd
+ * Copyright 2016 OpenMarket Ltd
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.internal.legacy.rest.model.pid;
+package im.vector.matrix.android.internal.network.ssl
 
-import im.vector.matrix.android.internal.legacy.rest.model.ThreePidCreds;
+import java.security.cert.CertificateException
+import java.security.cert.X509Certificate
 
 /**
- * Parameters to add a 3Pids to an user
+ * Thrown when we are given a certificate that does match the certificate we were told to
+ * expect.
  */
-public class AddThreePidsParams {
-
-    // the 3rd party id getCredentials
-    public ThreePidCreds three_pid_creds;
-
-    // true when the email has been binded.
-    public Boolean bind;
-}
+data class UnrecognizedCertificateException(
+        val certificate: X509Certificate,
+        val fingerprint: Fingerprint,
+        override val cause: Throwable?
+) : CertificateException("Unrecognized certificate with unknown fingerprint: " + certificate.subjectDN, cause)
