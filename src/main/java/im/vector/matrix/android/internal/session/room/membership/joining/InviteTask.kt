@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.internal.session.room.invite
+package im.vector.matrix.android.internal.session.room.membership.joining
 
 import arrow.core.Try
 import im.vector.matrix.android.internal.network.executeRequest

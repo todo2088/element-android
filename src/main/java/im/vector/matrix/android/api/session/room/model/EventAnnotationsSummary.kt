@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package im.vector.matrix.android.api.session.room.model
 
-package im.vector.matrix.android.internal.session.room.members
-
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
-import im.vector.matrix.android.api.session.events.model.Event
-
-@JsonClass(generateAdapter = true)
-internal data class RoomMembersResponse(
-        @Json(name = "chunk") val roomMemberEvents: List<Event>
+data class EventAnnotationsSummary(
+        var eventId: String,
+        var reactionsSummary: List<ReactionAggregatedSummary>,
+        var editSummary: EditAggregatedSummary?
 )

@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.api.session.room.model
+package im.vector.matrix.android.api.session.room.model.relation
 
-/**
- * Represents the membership of the current auth user on a room.
- */
-enum class MyMembership {
-    JOINED,
-    LEFT,
-    INVITED,
-    NONE
-}
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
+data class ReplyToContent(
+        @Json(name = "event_id") val eventId: String
+)
