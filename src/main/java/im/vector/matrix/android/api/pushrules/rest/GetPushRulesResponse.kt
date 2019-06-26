@@ -13,29 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package im.vector.matrix.android.api.pushrules.rest
 
-package im.vector.matrix.android.api.session.room.timeline
-
-import androidx.paging.PagedList
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 /**
- * This data class is a holder for timeline data.
- * It's returned by [TimelineService]
+ * All push rulesets for a user.
  */
-data class TimelineData(
+@JsonClass(generateAdapter = true)
+data class GetPushRulesResponse(
+        /**
+         * Global rules, account level applying to all devices
+         */
+        @Json(name = "global")
+        val global: Ruleset,
 
         /**
-         * The [PagedList] of [TimelineEvent] to usually be render in a RecyclerView.
+         * Device specific rules, apply only to current device
          */
-        val events: PagedList<TimelineEvent>,
-
-        /**
-         * True if Timeline is currently paginating forward on server
-         */
-        val isLoadingForward: Boolean = false,
-
-        /**
-         * True if Timeline is currently paginating backward on server
-         */
-        val isLoadingBackward: Boolean = false
+        @Json(name = "device")
+        val device: Ruleset? = null
 )

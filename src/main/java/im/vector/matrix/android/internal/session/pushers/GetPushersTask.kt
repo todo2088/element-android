@@ -13,15 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package im.vector.matrix.android.internal.session.pushers
 
-package im.vector.matrix.android.api.session.room.timeline
+import arrow.core.Try
+import im.vector.matrix.android.internal.network.executeRequest
+import im.vector.matrix.android.internal.task.Task
+import javax.inject.Inject
 
+internal interface GetPushersTask : Task<Unit, GetPushersResponse>
 
-interface TimelineEventInterceptor {
+internal class DefaultGetPusherTask @Inject constructor(private val pushersAPI: PushersAPI) : GetPushersTask {
 
-    fun canEnrich(event: TimelineEvent): Boolean
-
-    fun enrich(event: TimelineEvent)
-
+    override suspend fun execute(params: Unit): Try<GetPushersResponse> {
+        return executeRequest {
+            apiCall = pushersAPI.getPushers()
+        }
+    }
 }
-
