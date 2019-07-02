@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.internal.worker
+package im.vector.matrix.android.api.session.room.model.message
 
-interface SessionWorkerParams {
-    val userId: String
+import im.vector.matrix.android.internal.crypto.model.rest.EncryptedFileInfo
 
-    // Null is no error occurs. When chaining Workers, first step is to check that there is no lastFailureMessage from the previous workers
-    var lastFailureMessage: String?
+
+/**
+ * Interface for message which can contains encrypted data
+ */
+interface MessageEncyptedContent : MessageContent {
+    val encryptedFileInfo: EncryptedFileInfo?
 }
