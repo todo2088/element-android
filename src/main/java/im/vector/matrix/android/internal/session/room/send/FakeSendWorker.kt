@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package im.vector.matrix.android.internal.session.room.send
 
-package im.vector.matrix.android.api.session.room.model.relation
+import android.content.Context
+import androidx.work.Worker
+import androidx.work.WorkerParameters
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+internal class FakeSendWorker(context: Context, params: WorkerParameters)
+    : Worker(context, params) {
 
-@JsonClass(generateAdapter = true)
-data class ReplyToContent(
-        @Json(name = "event_id") val eventId: String? = null
-)
+    override fun doWork(): Result {
+        return Result.success()
+    }
+}
