@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.api.session.room.model
+package im.vector.matrix.android.internal.database.query
 
-import im.vector.matrix.android.api.session.user.model.User
+internal object FilterContent {
 
-data class ReadReceipt(
-        val user: User,
-        val originServerTs: Long
-)
+    internal const val EDIT_TYPE = """{*"m.relates_to"*"rel_type":*"m.replace"*}"""
+
+}
