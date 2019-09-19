@@ -14,13 +14,26 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.api.session.sync
+package im.vector.matrix.android.api.session.room.send
 
-sealed class SyncState {
-    object IDLE : SyncState()
-    data class RUNNING(val afterPause: Boolean) : SyncState()
-    object PAUSED : SyncState()
-    object KILLING : SyncState()
-    object KILLED : SyncState()
-    object NO_NETWORK : SyncState()
+import androidx.lifecycle.LiveData
+
+interface DraftService {
+
+    /**
+     * Save or update a draft to the room
+     */
+    fun saveDraft(draft: UserDraft)
+
+    /**
+     * Delete the last draft, basically just after sending the message
+     */
+    fun deleteDraft()
+
+    /**
+     * Return the current drafts if any, as a live data
+     * The draft list can contain one draft for {regular, reply, quote} and an arbitrary number of {edit} drafts
+     */
+    fun getDraftsLive(): LiveData<List<UserDraft>>
+
 }

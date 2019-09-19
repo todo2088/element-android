@@ -14,13 +14,21 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.internal.auth.data
+package im.vector.matrix.android.internal.database.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import io.realm.RealmObject
 
-@JsonClass(generateAdapter = true)
-data class LoginFlowResponse(
-        @Json(name = "flows")
-        val flows: List<InteractiveAuthenticationFlow>
-)
+internal open class DraftEntity(var content: String = "",
+                                var draftMode: String = MODE_REGULAR,
+                                var linkedEventId: String = ""
+
+) : RealmObject() {
+
+    companion object {
+        const val MODE_REGULAR = "REGULAR"
+        const val MODE_EDIT = "EDIT"
+        const val MODE_REPLY = "REPLY"
+        const val MODE_QUOTE = "QUOTE"
+    }
+}
+

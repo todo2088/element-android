@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.internal.auth.data
+package im.vector.matrix.android.internal.di
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import javax.inject.Qualifier
 
-@JsonClass(generateAdapter = true)
-data class LoginFlowResponse(
-        @Json(name = "flows")
-        val flows: List<InteractiveAuthenticationFlow>
-)
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class UserMd5

@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.internal.auth.data
+package im.vector.matrix.android.api.session.securestorage
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import java.io.InputStream
+import java.io.OutputStream
 
-@JsonClass(generateAdapter = true)
-data class LoginFlowResponse(
-        @Json(name = "flows")
-        val flows: List<InteractiveAuthenticationFlow>
-)
+interface SecureStorageService {
+
+    fun securelyStoreObject(any: Any, keyAlias: String, outputStream: OutputStream)
+
+    fun <T> loadSecureSecret(inputStream: InputStream, keyAlias: String): T?
+
+}

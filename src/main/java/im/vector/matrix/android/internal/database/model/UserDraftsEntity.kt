@@ -14,13 +14,23 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.internal.auth.data
+package im.vector.matrix.android.internal.database.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import io.realm.RealmList
+import io.realm.RealmObject
+import io.realm.RealmResults
+import io.realm.annotations.LinkingObjects
 
-@JsonClass(generateAdapter = true)
-data class LoginFlowResponse(
-        @Json(name = "flows")
-        val flows: List<InteractiveAuthenticationFlow>
-)
+/**
+ * Create a specific table to be able to do direct query on it and keep the draft ordered
+ */
+internal open class UserDraftsEntity(var userDrafts: RealmList<DraftEntity> = RealmList()
+) : RealmObject() {
+
+    // Link to RoomSummaryEntity
+    @LinkingObjects("userDrafts")
+    val roomSummaryEntity: RealmResults<RoomSummaryEntity>? = null
+
+    companion object
+
+}
