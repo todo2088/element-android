@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.internal.session.sync.model
+package im.vector.matrix.android.api.session.room.notification
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import androidx.lifecycle.LiveData
+import im.vector.matrix.android.api.MatrixCallback
+import im.vector.matrix.android.api.util.Cancelable
 
-@JsonClass(generateAdapter = true)
-internal data class UserAccountDataSync(
-        @Json(name = "events") val list: List<UserAccountData> = emptyList()
-)
+interface RoomPushRuleService {
+
+    fun getLiveRoomNotificationState(): LiveData<RoomNotificationState>
+
+    fun setRoomNotificationState(roomNotificationState: RoomNotificationState, matrixCallback: MatrixCallback<Unit>): Cancelable
+}

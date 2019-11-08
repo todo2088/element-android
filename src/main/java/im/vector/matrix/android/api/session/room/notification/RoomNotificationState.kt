@@ -14,12 +14,29 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.internal.session.sync.model
+package im.vector.matrix.android.api.session.room.notification
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+/**
+ * Defines the room notification state
+ */
+enum class RoomNotificationState {
+    /**
+     * All the messages will trigger a noisy notification
+     */
+    ALL_MESSAGES_NOISY,
 
-@JsonClass(generateAdapter = true)
-internal data class UserAccountDataDirectMessages(
-        @Json(name = "content") val content: Map<String, List<String>>
-) : UserAccountData
+    /**
+     * All the messages will trigger a notification
+     */
+    ALL_MESSAGES,
+
+    /**
+     * Only the messages with user display name / user name will trigger notifications
+     */
+    MENTIONS_ONLY,
+
+    /**
+     * No notifications
+     */
+    MUTE
+}

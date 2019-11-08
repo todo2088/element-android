@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.api.session.cache
+package im.vector.matrix.android.internal.session.room.notification
 
-import im.vector.matrix.android.api.MatrixCallback
+import im.vector.matrix.android.api.pushrules.RuleKind
+import im.vector.matrix.android.api.pushrules.rest.PushRule
 
-/**
- * This interface defines a method to clear the cache. It's implemented at the session level.
- */
-interface CacheService {
-
-    /**
-     * Clear the whole cached data, except credentials. Once done, the session is closed and has to be opened again
-     */
-    fun clearCache(callback: MatrixCallback<Unit>)
-}
+internal data class RoomPushRule(
+        val kind: RuleKind,
+        val rule: PushRule
+)
