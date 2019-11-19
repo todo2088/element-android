@@ -31,4 +31,5 @@ data class Credentials(
         @Json(name = "access_token") val accessToken: String,
         @Json(name = "refresh_token") val refreshToken: String?,
         @Json(name = "device_id") val deviceId: String?
+        // TODO Add Wellknown
 )
