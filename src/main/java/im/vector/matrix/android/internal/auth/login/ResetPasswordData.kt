@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,23 +14,16 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.internal.util
+package im.vector.matrix.android.internal.auth.login
 
-import im.vector.matrix.android.api.util.Cancelable
-import kotlinx.coroutines.Job
-
-internal fun Job.toCancelable(): Cancelable {
-    return CancelableCoroutine(this)
-}
+import com.squareup.moshi.JsonClass
+import im.vector.matrix.android.internal.auth.registration.AddThreePidRegistrationResponse
 
 /**
- * Private, use the extension above
+ * Container to store the data when a reset password is in the email validation step
  */
-private class CancelableCoroutine(private val job: Job) : Cancelable {
-
-    override fun cancel() {
-        if (!job.isCancelled) {
-            job.cancel()
-        }
-    }
-}
+@JsonClass(generateAdapter = true)
+internal data class ResetPasswordData(
+        val newPassword: String,
+        val addThreePidRegistrationResponse: AddThreePidRegistrationResponse
+)

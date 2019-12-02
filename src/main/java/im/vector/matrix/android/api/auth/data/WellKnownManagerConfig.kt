@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,24 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package im.vector.matrix.android.api.auth.data
 
-package im.vector.matrix.android.internal.util
-
-import im.vector.matrix.android.api.util.Cancelable
-import kotlinx.coroutines.Job
-
-internal fun Job.toCancelable(): Cancelable {
-    return CancelableCoroutine(this)
-}
-
-/**
- * Private, use the extension above
- */
-private class CancelableCoroutine(private val job: Job) : Cancelable {
-
-    override fun cancel() {
-        if (!job.isCancelled) {
-            job.cancel()
-        }
-    }
-}
+data class WellKnownManagerConfig(
+        val apiUrl : String,
+        val uiUrl: String
+)

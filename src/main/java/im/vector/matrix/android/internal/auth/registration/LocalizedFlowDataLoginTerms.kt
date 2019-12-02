@@ -1,11 +1,11 @@
 /*
- * Copyright 2019 New Vector Ltd
+ * Copyright 2018 New Vector Ltd
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,23 +14,18 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.internal.util
+package org.matrix.androidsdk.rest.model.login
 
-import im.vector.matrix.android.api.util.Cancelable
-import kotlinx.coroutines.Job
-
-internal fun Job.toCancelable(): Cancelable {
-    return CancelableCoroutine(this)
-}
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 /**
- * Private, use the extension above
+ * This class represent a localized privacy policy for registration Flow.
  */
-private class CancelableCoroutine(private val job: Job) : Cancelable {
-
-    override fun cancel() {
-        if (!job.isCancelled) {
-            job.cancel()
-        }
-    }
-}
+@Parcelize
+data class LocalizedFlowDataLoginTerms(
+        var policyName: String? = null,
+        var version: String? = null,
+        var localizedUrl: String? = null,
+        var localizedName: String? = null
+) : Parcelable

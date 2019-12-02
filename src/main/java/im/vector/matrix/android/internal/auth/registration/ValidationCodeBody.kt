@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.internal.util
+package im.vector.matrix.android.internal.auth.registration
 
-import im.vector.matrix.android.api.util.Cancelable
-import kotlinx.coroutines.Job
-
-internal fun Job.toCancelable(): Cancelable {
-    return CancelableCoroutine(this)
-}
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 /**
- * Private, use the extension above
+ * This object is used to send a code received by SMS to validate Msisdn ownership
  */
-private class CancelableCoroutine(private val job: Job) : Cancelable {
+@JsonClass(generateAdapter = true)
+data class ValidationCodeBody(
+        @Json(name = "client_secret")
+        val clientSecret: String,
 
-    override fun cancel() {
-        if (!job.isCancelled) {
-            job.cancel()
-        }
-    }
-}
+        @Json(name = "sid")
+        val sid: String,
+
+        @Json(name = "token")
+        val code: String
+)
