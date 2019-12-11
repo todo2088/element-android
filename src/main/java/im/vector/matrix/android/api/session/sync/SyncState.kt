@@ -23,4 +23,5 @@ sealed class SyncState {
     object KILLING : SyncState()
     object KILLED : SyncState()
     object NO_NETWORK : SyncState()
+    object INVALID_TOKEN : SyncState()
 }
