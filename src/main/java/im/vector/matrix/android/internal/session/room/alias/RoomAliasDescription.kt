@@ -14,14 +14,20 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.api.auth.data
+package im.vector.matrix.android.internal.session.room.alias
 
-/**
- * This data class holds necessary data to open a session.
- * You don't have to manually instantiate it.
- */
-data class SessionParams(
-        val credentials: Credentials,
-        val homeServerConnectionConfig: HomeServerConnectionConfig,
-        val isTokenValid: Boolean
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
+internal data class RoomAliasDescription(
+        /**
+         * The room ID for this alias.
+         */
+        @Json(name = "room_id") val roomId: String,
+
+        /**
+         * A list of servers that are aware of this room ID.
+         */
+        @Json(name = "servers") val servers: List<String> = emptyList()
 )
