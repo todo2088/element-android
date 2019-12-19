@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.api.permalinks
+package im.vector.matrix.android.internal.session.room.alias
 
-import android.net.Uri
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-/**
- * This sealed class represents all the permalink cases.
- * You don't have to instantiate yourself but should use [PermalinkParser] instead.
- */
-sealed class PermalinkData {
+@JsonClass(generateAdapter = true)
+internal data class RoomAliasDescription(
+        /**
+         * The room ID for this alias.
+         */
+        @Json(name = "room_id") val roomId: String,
 
-    data class RoomLink(val roomIdOrAlias: String, val isRoomAlias: Boolean, val eventId: String?) : PermalinkData()
-
-    data class UserLink(val userId: String) : PermalinkData()
-
-    data class GroupLink(val groupId: String) : PermalinkData()
-
-    data class FallbackLink(val uri: Uri) : PermalinkData()
-}
+        /**
+         * A list of servers that are aware of this room ID.
+         */
+        @Json(name = "servers") val servers: List<String> = emptyList()
+)
