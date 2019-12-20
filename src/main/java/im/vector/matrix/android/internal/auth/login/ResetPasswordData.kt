@@ -14,9 +14,16 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.api.failure
+package im.vector.matrix.android.internal.auth.login
 
-// This data class will be sent to the bus
-data class ConsentNotGivenError(
-        val consentUri: String
+import com.squareup.moshi.JsonClass
+import im.vector.matrix.android.internal.auth.registration.AddThreePidRegistrationResponse
+
+/**
+ * Container to store the data when a reset password is in the email validation step
+ */
+@JsonClass(generateAdapter = true)
+internal data class ResetPasswordData(
+        val newPassword: String,
+        val addThreePidRegistrationResponse: AddThreePidRegistrationResponse
 )
