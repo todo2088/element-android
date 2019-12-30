@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.api.session.room.send
+package im.vector.matrix.android.api.failure
 
-import im.vector.matrix.android.api.util.MatrixItem
+import javax.net.ssl.HttpsURLConnection
 
-/**
- * Tag class for spans that should mention a user.
- * These Spans will be transformed into pills when detected in message to send
- */
-interface UserMentionSpan {
-    val matrixItem: MatrixItem
-}
+fun Throwable.is401() =
+        this is Failure.ServerError
+                && httpCode == HttpsURLConnection.HTTP_UNAUTHORIZED /* 401 */
+                && error.code == MatrixError.M_UNAUTHORIZED
+
+fun Throwable.isTokenError() =
+        this is Failure.ServerError
+                && (error.code == MatrixError.M_UNKNOWN_TOKEN || error.code == MatrixError.M_MISSING_TOKEN)

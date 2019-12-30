@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.internal.session.room.send.pills
+package im.vector.matrix.android.api.session.room.send
 
-import im.vector.matrix.android.api.session.room.send.MatrixItemSpan
+import im.vector.matrix.android.api.util.MatrixItem
 
-internal data class MentionLinkSpec(
-        val span: MatrixItemSpan,
-        val start: Int,
-        val end: Int
-)
+/**
+ * Tag class for spans that should mention a matrix item.
+ * These Spans will be transformed into pills when detected in message to send
+ */
+interface MatrixItemSpan {
+    val matrixItem: MatrixItem
+}
