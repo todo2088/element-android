@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 New Vector Ltd
+ * Copyright 2020 New Vector Ltd
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.api.session.room.send
+package im.vector.matrix.android.internal.auth
 
-import im.vector.matrix.android.api.util.MatrixItem
+import im.vector.matrix.android.internal.util.md5
 
-/**
- * Tag class for spans that should mention a user.
- * These Spans will be transformed into pills when detected in message to send
- */
-interface UserMentionSpan {
-    val matrixItem: MatrixItem
+internal fun createSessionId(userId: String, deviceId: String?): String {
+    return (if (deviceId.isNullOrBlank()) userId else "$userId|$deviceId").md5()
 }
