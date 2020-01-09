@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 New Vector Ltd
+ * Copyright 2020 New Vector Ltd
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,20 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.internal.database.helper
+package im.vector.matrix.android.internal.query
 
-import im.vector.matrix.android.internal.database.model.TimelineEventEntity
-import im.vector.matrix.android.internal.database.model.TimelineEventEntityFields
-import io.realm.Realm
+import io.realm.RealmObject
+import io.realm.RealmQuery
 
-internal fun TimelineEventEntity.Companion.nextId(realm: Realm): Long {
-    val currentIdNum = realm.where(TimelineEventEntity::class.java).max(TimelineEventEntityFields.LOCAL_ID)
-    return if (currentIdNum == null) {
-        1
-    } else {
-        currentIdNum.toLong() + 1
+fun <T : RealmObject, E : Enum<E>> RealmQuery<T>.process(field: String, enums: List<Enum<E>>): RealmQuery<T> {
+    val lastEnumValue = enums.lastOrNull()
+    beginGroup()
+    for (enumValue in enums) {
+        equalTo(field, enumValue.name)
+        if (enumValue != lastEnumValue) {
+            or()
+        }
     }
+    endGroup()
+    return this
 }

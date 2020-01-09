@@ -14,17 +14,21 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.internal.database.helper
+package im.vector.matrix.android.internal.database.query
 
-import im.vector.matrix.android.internal.database.model.TimelineEventEntity
-import im.vector.matrix.android.internal.database.model.TimelineEventEntityFields
+import im.vector.matrix.android.internal.database.model.RoomMemberEntity
+import im.vector.matrix.android.internal.database.model.RoomMemberEntityFields
 import io.realm.Realm
+import io.realm.RealmQuery
+import io.realm.kotlin.where
 
-internal fun TimelineEventEntity.Companion.nextId(realm: Realm): Long {
-    val currentIdNum = realm.where(TimelineEventEntity::class.java).max(TimelineEventEntityFields.LOCAL_ID)
-    return if (currentIdNum == null) {
-        1
-    } else {
-        currentIdNum.toLong() + 1
+internal fun RoomMemberEntity.Companion.where(realm: Realm, roomId: String, userId: String? = null): RealmQuery<RoomMemberEntity> {
+    val query = realm
+            .where<RoomMemberEntity>()
+            .equalTo(RoomMemberEntityFields.ROOM_ID, roomId)
+
+    if (userId != null) {
+        query.equalTo(RoomMemberEntityFields.USER_ID, userId)
     }
+    return query
 }
