@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 New Vector Ltd
+ * Copyright 2020 New Vector Ltd
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,16 +12,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
-package im.vector.matrix.android.api.session.room.model
+package im.vector.matrix.android.api.session.room.powerlevels
 
-/**
- * Class representing a simplified version of EventType.STATE_ROOM_MEMBER state event content
- */
-data class RoomMember(
-        val membership: Membership,
-        val userId: String,
-        val displayName: String? = null,
-        val avatarUrl: String? = null
-)
+object PowerLevelsConstants {
+
+    const val DEFAULT_ROOM_ADMIN_LEVEL = 100
+    const val DEFAULT_ROOM_MODERATOR_LEVEL = 50
+    const val DEFAULT_ROOM_USER_LEVEL = 0
+}
