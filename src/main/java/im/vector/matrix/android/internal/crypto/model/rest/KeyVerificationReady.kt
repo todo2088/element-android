@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 OpenMarket Ltd
+ * Copyright 2019 New Vector Ltd
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,24 +17,21 @@ package im.vector.matrix.android.internal.crypto.model.rest
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import im.vector.matrix.android.internal.crypto.verification.VerificationInfoReady
 
 /**
- * This class provides the authentication data to delete a device
+ * Requests a key verification with another user's devices.
  */
 @JsonClass(generateAdapter = true)
-internal data class DeleteDeviceAuth(
+internal data class KeyVerificationReady(
+        @Json(name = "from_device") override val fromDevice: String?,
+        @Json(name = "methods") override val methods: List<String>?,
+        @Json(name = "transaction_id") override val transactionID: String? = null
+) : SendToDeviceObject, VerificationInfoReady {
 
-        // device device session id
-        @Json(name = "session")
-        var session: String? = null,
+    override fun toSendToDeviceObject() = this
 
-        // registration information
-        @Json(name = "type")
-        var type: String? = null,
-
-        @Json(name = "user")
-        var user: String? = null,
-
-        @Json(name = "password")
-        var password: String? = null
-)
+    override fun isValid(): Boolean {
+        return !transactionID.isNullOrBlank() && !fromDevice.isNullOrBlank() && !methods.isNullOrEmpty()
+    }
+}

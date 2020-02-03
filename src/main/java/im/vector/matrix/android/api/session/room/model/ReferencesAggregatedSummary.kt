@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,20 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package im.vector.matrix.android.api.session.room.model
 
-package im.vector.matrix.android.api.session.crypto.sas
+import im.vector.matrix.android.api.session.events.model.Content
 
-interface OutgoingSasVerificationRequest {
-    val uxState: UxState
-
-    enum class UxState {
-        UNKNOWN,
-        WAIT_FOR_START,
-        WAIT_FOR_KEY_AGREEMENT,
-        SHOW_SAS,
-        WAIT_FOR_VERIFICATION,
-        VERIFIED,
-        CANCELLED_BY_ME,
-        CANCELLED_BY_OTHER
-    }
-}
+/**
+ * Events can relates to other events, this object keeps a summary
+ * of all events that are referencing the 'eventId' event via the RelationType.REFERENCE
+ */
+data class ReferencesAggregatedSummary(
+        val eventId: String,
+        val content: Content?,
+        val sourceEvents: List<String>,
+        val localEchos: List<String>
+)

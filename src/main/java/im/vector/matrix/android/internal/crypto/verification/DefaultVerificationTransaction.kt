@@ -15,18 +15,18 @@
  */
 package im.vector.matrix.android.internal.crypto.verification
 
-import im.vector.matrix.android.api.session.crypto.sas.CancelCode
-import im.vector.matrix.android.api.session.crypto.sas.SasVerificationTransaction
-import im.vector.matrix.android.internal.crypto.model.rest.SendToDeviceObject
+import im.vector.matrix.android.api.session.crypto.sas.VerificationTransaction
 
 /**
  * Generic interactive key verification transaction
  */
-internal abstract class VerificationTransaction(
+internal abstract class DefaultVerificationTransaction(
         override val transactionId: String,
         override val otherUserId: String,
         override var otherDeviceId: String? = null,
-        override val isIncoming: Boolean) : SasVerificationTransaction {
+        override val isIncoming: Boolean) : VerificationTransaction {
+
+    lateinit var transport: VerificationTransport
 
     interface Listener {
         fun transactionUpdated(tx: VerificationTransaction)
@@ -42,7 +42,5 @@ internal abstract class VerificationTransaction(
         listeners.remove(listener)
     }
 
-    abstract fun acceptToDeviceEvent(senderId: String, event: SendToDeviceObject)
-
-    abstract fun cancel(code: CancelCode)
+    abstract fun acceptVerificationEvent(senderId: String, info: VerificationInfo)
 }
