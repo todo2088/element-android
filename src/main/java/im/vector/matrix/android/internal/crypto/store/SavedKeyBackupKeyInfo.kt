@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.api.session.securestorage
+package im.vector.matrix.android.internal.crypto.store
 
-interface KeySigner {
-    fun sign(canonicalJson: String): Map<String, Map<String, String>>?
-}
-
-class EmptyKeySigner : KeySigner {
-    override fun sign(canonicalJson: String): Map<String, Map<String, String>>? = null
-}
+data class SavedKeyBackupKeyInfo(
+        val recoveryKey : String,
+        val version: String
+)
