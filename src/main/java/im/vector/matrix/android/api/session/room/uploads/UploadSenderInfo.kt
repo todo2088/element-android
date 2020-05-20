@@ -16,12 +16,18 @@
 
 package im.vector.matrix.android.api.session.room.uploads
 
-data class GetUploadsResult(
-        // List of fetched Events, most recent first
-        val events: List<UploadEvent>,
-        // token to get more events
-        val nextToken: String,
-        // True if there are more event to load
-        val hasMore: Boolean
-)
-
+// TODO Maybe use this model for TimelineEvent as well
+data class UploadSenderInfo(
+        val senderId: String,
+        val senderName: String?,
+        val isUniqueDisplayName: Boolean,
+        val senderAvatar: String?
+) {
+    fun getDisambiguatedDisplayName(): String {
+        return when {
+            senderName.isNullOrBlank() -> senderId
+            isUniqueDisplayName        -> senderName
+            else                       -> "$senderName (${senderId})"
+        }
+    }
+}

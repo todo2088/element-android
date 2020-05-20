@@ -16,12 +16,16 @@
 
 package im.vector.matrix.android.api.session.room.uploads
 
-data class GetUploadsResult(
-        // List of fetched Events, most recent first
-        val events: List<UploadEvent>,
-        // token to get more events
-        val nextToken: String,
-        // True if there are more event to load
-        val hasMore: Boolean
-)
+import im.vector.matrix.android.api.session.events.model.Event
+import im.vector.matrix.android.api.session.room.model.message.MessageWithAttachmentContent
 
+/**
+ * Wrapper around on Event.
+ * Similar to [im.vector.matrix.android.api.session.room.timeline.TimelineEvent], contains an Event with extra useful data
+ */
+data class UploadEvent(
+        val root: Event,
+        val eventId: String,
+        val contentWithAttachmentContent: MessageWithAttachmentContent,
+        val uploadSenderInfo: UploadSenderInfo
+)
