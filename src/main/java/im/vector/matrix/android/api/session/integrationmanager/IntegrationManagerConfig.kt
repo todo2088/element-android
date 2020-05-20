@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package im.vector.matrix.android.internal.session.integrationmanager
+package im.vector.matrix.android.api.session.integrationmanager
 
 data class IntegrationManagerConfig(
         val uiUrl: String,
