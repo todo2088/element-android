@@ -16,19 +16,27 @@
 
 package im.vector.matrix.android.api.session.call
 
-import im.vector.matrix.android.api.MatrixCallback
-import im.vector.matrix.android.api.util.Cancelable
+enum class CallState {
 
-interface CallService {
+    /** Idle, setting up objects */
+    IDLE,
 
-    fun getTurnServer(callback: MatrixCallback<TurnServer>): Cancelable
+    /** Dialing.  Outgoing call is signaling the remote peer */
+    DIALING,
 
-    /**
-     * Create an outgoing call
-     */
-    fun createOutgoingCall(roomId: String, otherUserId: String, isVideoCall: Boolean): MxCall
+    /** Answering.  Incoming call is responding to remote peer */
+    ANSWERING,
 
-    fun addCallListener(listener: CallsListener)
+    /** Remote ringing. Outgoing call, ICE negotiation is complete */
+    REMOTE_RINGING,
 
-    fun removeCallListener(listener: CallsListener)
+    /** Local ringing. Incoming call, ICE negotiation is complete */
+    LOCAL_RINGING,
+
+    /** Connected. Incoming/Outgoing call, the call is connected */
+    CONNECTED,
+
+    /** Terminated.  Incoming/Outgoing call, the call is terminated */
+    TERMINATED,
+
 }
