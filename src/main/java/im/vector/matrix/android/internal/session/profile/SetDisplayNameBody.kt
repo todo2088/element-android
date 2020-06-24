@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package im.vector.matrix.android.internal.session.profile
 
-package im.vector.matrix.android.api.extensions
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-import timber.log.Timber
-
-inline fun <A> tryThis(message: String? = null, operation: () -> A): A? {
-    return try {
-        operation()
-    } catch (any: Throwable) {
-        if (message != null) {
-            Timber.e(any, message)
-        }
-        null
-    }
-}
+@JsonClass(generateAdapter = true)
+internal data class SetDisplayNameBody(
+        /**
+         * The new display name for this user.
+         */
+        @Json(name = "displayname")
+        val displayName: String
+)

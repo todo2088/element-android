@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.api.extensions
+package im.vector.matrix.android.internal.session.call
 
-import timber.log.Timber
+import im.vector.matrix.android.api.session.call.TurnServerResponse
+import im.vector.matrix.android.internal.network.NetworkConstants
+import retrofit2.Call
+import retrofit2.http.GET
 
-inline fun <A> tryThis(message: String? = null, operation: () -> A): A? {
-    return try {
-        operation()
-    } catch (any: Throwable) {
-        if (message != null) {
-            Timber.e(any, message)
-        }
-        null
-    }
+internal interface VoipApi {
+
+    @GET(NetworkConstants.URI_API_PREFIX_PATH_R0 + "voip/turnServer")
+    fun getTurnServer(): Call<TurnServerResponse>
 }

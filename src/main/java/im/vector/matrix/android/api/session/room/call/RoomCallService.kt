@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.api.extensions
+package im.vector.matrix.android.api.session.room.call
 
-import timber.log.Timber
-
-inline fun <A> tryThis(message: String? = null, operation: () -> A): A? {
-    return try {
-        operation()
-    } catch (any: Throwable) {
-        if (message != null) {
-            Timber.e(any, message)
-        }
-        null
-    }
+/**
+ * This interface defines methods to handle calls in a room. It's implemented at the room level.
+ */
+interface RoomCallService {
+    /**
+     * Return true if calls (audio or video) can be performed on this Room
+     */
+    fun canStartCall(): Boolean
 }

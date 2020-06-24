@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package im.vector.matrix.android.api.extensions
+package im.vector.matrix.android.api.session.room.model.call
 
-import timber.log.Timber
+import com.squareup.moshi.Json
 
-inline fun <A> tryThis(message: String? = null, operation: () -> A): A? {
-    return try {
-        operation()
-    } catch (any: Throwable) {
-        if (message != null) {
-            Timber.e(any, message)
-        }
-        null
-    }
+enum class SdpType {
+    @Json(name = "offer")
+    OFFER,
+
+    @Json(name = "answer")
+    ANSWER
 }
