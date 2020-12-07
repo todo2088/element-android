@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.terms
+package org.matrix.android.sdk.internal.session.directory
 
-interface TermsService {
-    enum class ServiceType {
-        IntegrationManager,
-        IdentityService
-    }
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import org.matrix.android.sdk.api.session.room.model.RoomDirectoryVisibility
 
-    suspend fun getTerms(serviceType: ServiceType, baseUrl: String): GetTermsResponse
-
-    suspend fun agreeToTerms(serviceType: ServiceType,
-                             baseUrl: String,
-                             agreedUrls: List<String>,
-                             token: String?)
-}
+@JsonClass(generateAdapter = true)
+internal data class RoomDirectoryVisibilityJson(
+        /**
+         * The visibility of the room in the directory. One of: ["private", "public"]
+         */
+        @Json(name = "visibility") val visibility: RoomDirectoryVisibility
+)

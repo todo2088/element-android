@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.terms
+package org.matrix.android.sdk.internal.session.room.alias
 
-interface TermsService {
-    enum class ServiceType {
-        IntegrationManager,
-        IdentityService
-    }
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-    suspend fun getTerms(serviceType: ServiceType, baseUrl: String): GetTermsResponse
-
-    suspend fun agreeToTerms(serviceType: ServiceType,
-                             baseUrl: String,
-                             agreedUrls: List<String>,
-                             token: String?)
-}
+@JsonClass(generateAdapter = true)
+internal data class GetAliasesResponse(
+        /**
+         * Required. The server's local aliases on the room. Can be empty.
+         */
+        @Json(name = "aliases") val aliases: List<String> = emptyList()
+)

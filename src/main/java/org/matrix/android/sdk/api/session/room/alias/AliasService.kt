@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.terms
+package org.matrix.android.sdk.api.session.room.alias
 
-interface TermsService {
-    enum class ServiceType {
-        IntegrationManager,
-        IdentityService
-    }
+interface AliasService {
+    /**
+     * Get list of local alias of the room
+     * @return the list of the aliases (full aliases, not only the local part)
+     */
+    suspend fun getRoomAliases(): List<String>
 
-    suspend fun getTerms(serviceType: ServiceType, baseUrl: String): GetTermsResponse
-
-    suspend fun agreeToTerms(serviceType: ServiceType,
-                             baseUrl: String,
-                             agreedUrls: List<String>,
-                             token: String?)
+    /**
+     * Add local alias to the room
+     * @param aliasLocalPart the local part of the alias.
+     * Ex: for the alias "#my_alias:example.org", the local part is "my_alias"
+     */
+    suspend fun addAlias(aliasLocalPart: String)
 }

@@ -17,40 +17,26 @@
 package org.matrix.android.sdk.internal.session.room.alias
 
 import org.greenrobot.eventbus.EventBus
-import org.matrix.android.sdk.internal.di.UserId
 import org.matrix.android.sdk.internal.network.executeRequest
 import org.matrix.android.sdk.internal.session.directory.DirectoryAPI
-import org.matrix.android.sdk.internal.session.room.alias.RoomAliasAvailabilityChecker.Companion.toFullLocalAlias
 import org.matrix.android.sdk.internal.task.Task
 import javax.inject.Inject
 
-internal interface AddRoomAliasTask : Task<AddRoomAliasTask.Params, Unit> {
+internal interface DeleteRoomAliasTask : Task<DeleteRoomAliasTask.Params, Unit> {
     data class Params(
-            val roomId: String,
-            /**
-             * the local part of the alias.
-             * Ex: for the alias "#my_alias:example.org", the local part is "my_alias"
-             */
-            val aliasLocalPart: String
+            val roomAlias: String
     )
 }
 
-internal class DefaultAddRoomAliasTask @Inject constructor(
-        @UserId private val userId: String,
+internal class DefaultDeleteRoomAliasTask @Inject constructor(
         private val directoryAPI: DirectoryAPI,
-        private val aliasAvailabilityChecker: RoomAliasAvailabilityChecker,
         private val eventBus: EventBus
-) : AddRoomAliasTask {
+) : DeleteRoomAliasTask {
 
-    override suspend fun execute(params: AddRoomAliasTask.Params) {
-        aliasAvailabilityChecker.check(params.aliasLocalPart)
-
+    override suspend fun execute(params: DeleteRoomAliasTask.Params) {
         executeRequest<Unit>(eventBus) {
-            apiCall = directoryAPI.addRoomAlias(
-                    roomAlias = params.aliasLocalPart.toFullLocalAlias(userId),
-                    body = AddRoomAliasBody(
-                            roomId = params.roomId
-                    )
+            apiCall = directoryAPI.deleteRoomAlias(
+                    roomAlias = params.roomAlias
             )
         }
     }

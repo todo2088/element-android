@@ -14,18 +14,10 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.terms
+package org.matrix.android.sdk.api.session.room.alias
 
-interface TermsService {
-    enum class ServiceType {
-        IntegrationManager,
-        IdentityService
-    }
-
-    suspend fun getTerms(serviceType: ServiceType, baseUrl: String): GetTermsResponse
-
-    suspend fun agreeToTerms(serviceType: ServiceType,
-                             baseUrl: String,
-                             agreedUrls: List<String>,
-                             token: String?)
+sealed class RoomAliasError : Throwable() {
+    object AliasEmpty : RoomAliasError()
+    object AliasNotAvailable : RoomAliasError()
+    object AliasInvalid : RoomAliasError()
 }
