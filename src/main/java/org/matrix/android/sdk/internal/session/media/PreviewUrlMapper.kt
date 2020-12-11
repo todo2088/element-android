@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.internal.session.content
+package org.matrix.android.sdk.internal.session.media
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import org.matrix.android.sdk.api.session.media.PreviewUrlData
+import org.matrix.android.sdk.internal.database.model.PreviewUrlCacheEntity
 
-@JsonClass(generateAdapter = true)
-internal data class ContentUploadResponse(
-        /**
-         * Required. The MXC URI to the uploaded content.
-         */
-        @Json(name = "content_uri") val contentUri: String
+/**
+ * PreviewUrlCacheEntity -> PreviewUrlData
+ */
+internal fun PreviewUrlCacheEntity.toDomain() = PreviewUrlData(
+        url = urlFromServer ?: url,
+        siteName = siteName,
+        title = title,
+        description = description,
+        mxcUrl = mxcUrl
 )
