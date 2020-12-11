@@ -14,15 +14,23 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.internal.session.content
+package org.matrix.android.sdk.internal.database.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
 
-@JsonClass(generateAdapter = true)
-internal data class ContentUploadResponse(
-        /**
-         * Required. The MXC URI to the uploaded content.
-         */
-        @Json(name = "content_uri") val contentUri: String
-)
+internal open class PreviewUrlCacheEntity(
+        @PrimaryKey
+        var url: String = "",
+
+        var urlFromServer: String? = null,
+        var siteName: String? = null,
+        var title: String? = null,
+        var description: String? = null,
+        var mxcUrl: String? = null,
+
+        var lastUpdatedTimestamp: Long = 0L
+) : RealmObject() {
+
+    companion object
+}
