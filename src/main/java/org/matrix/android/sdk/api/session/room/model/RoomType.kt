@@ -14,19 +14,10 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.room.model.create
+package org.matrix.android.sdk.api.session.room.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+object RoomType {
 
-/**
- * Content of a m.room.create type event
- */
-@JsonClass(generateAdapter = true)
-data class RoomCreateContent(
-        @Json(name = "creator") val creator: String? = null,
-        @Json(name = "room_version") val roomVersion: String? = null,
-        @Json(name = "predecessor") val predecessor: Predecessor? = null,
-        // Defines the room type, see #RoomType (user extensible)
-        @Json(name = "type") val type: String? = null
-)
+    const val SPACE = "m.space"
+    const val MESSAGING = "m.messaging"
+}
