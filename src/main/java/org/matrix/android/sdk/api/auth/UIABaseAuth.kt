@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.cache
+package org.matrix.android.sdk.api.auth
 
-/**
- * This interface defines a method to clear the cache. It's implemented at the session level.
- */
-interface CacheService {
-
+interface UIABaseAuth {
     /**
-     * Clear the whole cached data, except credentials. Once done, the sync has to be restarted by the sdk user.
+     * This is a session identifier that the client must pass back to the homeserver,
+     * if one is provided, in subsequent attempts to authenticate in the same API call.
      */
-    suspend fun clearCache()
+    val session: String?
+
+    fun hasAuthInfo(): Boolean
+
+    fun copyWithSession(session: String): UIABaseAuth
+
+    fun asMap() : Map<String, *>
 }
