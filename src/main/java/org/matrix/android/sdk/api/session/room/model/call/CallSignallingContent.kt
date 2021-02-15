@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Matrix.org Foundation C.I.C.
+ * Copyright (c) 2020 The Matrix.org Foundation C.I.C.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.widgets.model
+package org.matrix.android.sdk.api.session.room.model.call
 
-import org.matrix.android.sdk.api.session.events.model.Event
-import org.matrix.android.sdk.api.session.room.sender.SenderInfo
+interface CallSignallingContent {
+    /**
+     * Required. A unique identifier for the call.
+     */
+    val callId: String?
 
-data class Widget(
-        val widgetContent: WidgetContent,
-        val event: Event,
-        val widgetId: String,
-        val senderInfo: SenderInfo?,
-        val isAddedByMe: Boolean,
-        val type: WidgetType
-) {
+    /**
+     * Required. ID to let user identify remote echo of their own events
+     */
+    val partyId: String?
 
-    val isActive = widgetContent.isActive()
-
-    val name = widgetContent.getHumanName()
+    /**
+     * Required. The version of the VoIP specification this message adheres to. This specification is version 0.
+     */
+    val version: String?
 }

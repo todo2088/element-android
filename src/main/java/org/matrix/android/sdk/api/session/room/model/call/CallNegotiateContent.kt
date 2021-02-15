@@ -20,10 +20,10 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
- * This event is sent by the callee when they wish to answer the call.
+ * This introduces SDP negotiation semantics for media pause, hold/resume, ICE restarts and voice/video call up/downgrading.
  */
 @JsonClass(generateAdapter = true)
-data class CallAnswerContent(
+data class CallNegotiateContent(
         /**
          * Required. The ID of the call this event relates to.
          */
@@ -33,28 +33,30 @@ data class CallAnswerContent(
          */
         @Json(name = "party_id") override val partyId: String? = null,
         /**
+         * Required. The time in milliseconds that the negotiation is valid for. Once exceeded the sender
+         * of the negotiate event should consider the negotiation failed (timed out) and the recipient should ignore it.
+         **/
+        @Json(name = "lifetime") val lifetime: Int?,
+        /**
          * Required. The session description object
          */
-        @Json(name = "answer") val answer: Answer,
-        /**
-         * Required. The version of the VoIP specification this messages adheres to.
-         */
-        @Json(name = "version") override val version: String?,
-        /**
-         * Capability advertisement.
-         */
-        @Json(name = "capabilities") val capabilities: CallCapabilities? = null
-): CallSignallingContent  {
+        @Json(name = "description") val description: Description? = null,
 
+        /**
+         * Required. The version of the VoIP specification this message adheres to.
+         */
+        @Json(name = "version") override val version: String?
+
+        ): CallSignallingContent  {
     @JsonClass(generateAdapter = true)
-    data class Answer(
+    data class Description(
             /**
-             * Required. The type of session description. Must be 'answer'.
+             * Required. The type of session description.
              */
-            @Json(name = "type") val type: SdpType = SdpType.ANSWER,
+            @Json(name = "type") val type: SdpType?,
             /**
              * Required. The SDP text of the session description.
              */
-            @Json(name = "sdp") val sdp: String
+            @Json(name = "sdp") val sdp: String?
     )
 }

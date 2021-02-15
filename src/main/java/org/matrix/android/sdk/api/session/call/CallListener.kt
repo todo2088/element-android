@@ -20,8 +20,11 @@ import org.matrix.android.sdk.api.session.room.model.call.CallAnswerContent
 import org.matrix.android.sdk.api.session.room.model.call.CallCandidatesContent
 import org.matrix.android.sdk.api.session.room.model.call.CallHangupContent
 import org.matrix.android.sdk.api.session.room.model.call.CallInviteContent
+import org.matrix.android.sdk.api.session.room.model.call.CallNegotiateContent
+import org.matrix.android.sdk.api.session.room.model.call.CallRejectContent
+import org.matrix.android.sdk.api.session.room.model.call.CallSelectAnswerContent
 
-interface CallsListener {
+interface CallListener {
     /**
      * Called when there is an incoming call within the room.
      */
@@ -39,5 +42,23 @@ interface CallsListener {
      */
     fun onCallHangupReceived(callHangupContent: CallHangupContent)
 
+    /**
+     * Called when a called has been rejected
+     */
+    fun onCallRejectReceived(callRejectContent: CallRejectContent)
+
+    /**
+     * Called when an answer has been selected
+     */
+    fun onCallSelectAnswerReceived(callSelectAnswerContent: CallSelectAnswerContent)
+
+    /**
+     * Called when a negotiation is sent
+     */
+    fun onCallNegotiateReceived(callNegotiateContent: CallNegotiateContent)
+
+    /**
+     * Called when the call has been managed by an other session
+     */
     fun onCallManagedByOtherSession(callId: String)
 }

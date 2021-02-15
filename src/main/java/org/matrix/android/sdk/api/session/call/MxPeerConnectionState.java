@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Matrix.org Foundation C.I.C.
+ * Copyright (c) 2020 The Matrix.org Foundation C.I.C.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.widgets.model
+package org.matrix.android.sdk.api.session.call;
 
-import org.matrix.android.sdk.api.session.events.model.Event
-import org.matrix.android.sdk.api.session.room.sender.SenderInfo
-
-data class Widget(
-        val widgetContent: WidgetContent,
-        val event: Event,
-        val widgetId: String,
-        val senderInfo: SenderInfo?,
-        val isAddedByMe: Boolean,
-        val type: WidgetType
-) {
-
-    val isActive = widgetContent.isActive()
-
-    val name = widgetContent.getHumanName()
+/**
+ * This is a copy of https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/connectionState
+ * to avoid having the dependency over WebRtc library on sdk.
+ */
+public enum MxPeerConnectionState {
+    NEW,
+    CONNECTING,
+    CONNECTED,
+    DISCONNECTED,
+    FAILED,
+    CLOSED
 }

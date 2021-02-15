@@ -14,23 +14,19 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.internal.session
+package org.matrix.android.sdk.api.session.room.model.call
 
-import org.matrix.android.sdk.api.session.events.model.Event
-import org.matrix.android.sdk.internal.database.model.EventInsertType
-import io.realm.Realm
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import org.matrix.android.sdk.api.extensions.orFalse
 
-internal interface EventInsertLiveProcessor {
+@JsonClass(generateAdapter = true)
+data class CallCapabilities(
+        /**
+         * If set to true, states that the sender of the event supports the m.call.replaces event and therefore supports
+         * being transferred to another destination
+         */
+        @Json(name = "m.call.transferee") val transferee: Boolean? = null
+)
 
-    fun shouldProcess(eventId: String, eventType: String, insertType: EventInsertType): Boolean
-
-    suspend fun process(realm: Realm, event: Event)
-
-    /**
-     * Called after transaction.
-     * Maybe you prefer to process the events outside of the realm transaction.
-     */
-    suspend fun onPostProcess() {
-        // Noop by default
-    }
-}
+fun CallCapabilities?.supportCallTransfer() = this?.transferee.orFalse()
