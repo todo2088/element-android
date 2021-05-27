@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.call
+package org.matrix.android.sdk.api.session.accountdata
 
-interface CallSignalingService {
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import org.matrix.android.sdk.api.session.events.model.Content
 
-    suspend fun getTurnServer(): TurnServerResponse
-
-    /**
-     * Create an outgoing call
-     */
-    fun createOutgoingCall(roomId: String, otherUserId: String, isVideoCall: Boolean): MxCall
-
-    fun addCallListener(listener: CallListener)
-
-    fun removeCallListener(listener: CallListener)
-
-    fun getCallWithId(callId: String): MxCall?
-
-    fun isThereAnyActiveCall(): Boolean
-}
+/**
+ * This is a simplified Event with just a type and a content.
+ * Currently used types are defined in [UserAccountDataTypes].
+ */
+@JsonClass(generateAdapter = true)
+data class AccountDataEvent(
+        @Json(name = "type") val type: String,
+        @Json(name = "content") val content: Content
+)
