@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 The Matrix.org Foundation C.I.C.
+ * Copyright 2021 The Matrix.org Foundation C.I.C.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,13 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.room.model.call
+package org.matrix.android.sdk.internal.session.room
 
-interface CallSignallingContent {
-    /**
-     * Required. A unique identifier for the call.
-     */
-    val callId: String?
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-    /**
-     * Required. ID to let user identify remote echo of their own events
-     */
-    val partyId: String?
-
-    /**
-     * Required. The version of the VoIP specification this message adheres to. This specification is version 0.
-     */
-    val version: String?
-}
+@JsonClass(generateAdapter = true)
+internal data class RoomUpgradeResponse(
+        @Json(name = "replacement_room")
+        val replacementRoomId: String
+)
