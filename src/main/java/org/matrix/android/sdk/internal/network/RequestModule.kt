@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Matrix.org Foundation C.I.C.
+ * Copyright 2021 The Matrix.org Foundation C.I.C.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk
+package org.matrix.android.sdk.internal.network
 
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.asCoroutineDispatcher
-import org.matrix.android.sdk.api.MatrixCoroutineDispatchers
-import java.util.concurrent.Executors
+import dagger.Module
+import dagger.Provides
 
-internal val testCoroutineDispatchers = MatrixCoroutineDispatchers(Main, Main, Main, Main,
-        Executors.newSingleThreadExecutor().asCoroutineDispatcher())
+@Module
+internal object RequestModule {
+
+    @Provides
+    fun providesRequestExecutor(): RequestExecutor {
+        return DefaultRequestExecutor
+    }
+}
