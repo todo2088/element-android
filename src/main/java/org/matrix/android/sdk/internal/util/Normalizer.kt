@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Matrix.org Foundation C.I.C.
+ * Copyright 2021 The Matrix.org Foundation C.I.C.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.internal.worker
+package org.matrix.android.sdk.internal.util
 
-import androidx.work.ListenableWorker
-import org.matrix.android.sdk.api.Matrix
-import org.matrix.android.sdk.internal.session.SessionComponent
+import java.text.Normalizer
+import javax.inject.Inject
 
-internal fun ListenableWorker.getSessionComponent(sessionId: String): SessionComponent? {
-    return Matrix.getInstance(applicationContext).sessionManager.getSessionComponent(sessionId)
+class Normalizer @Inject constructor() {
+
+    fun normalize(input: String): String {
+        return Normalizer.normalize(input.lowercase(), Normalizer.Form.NFD)
+    }
 }
