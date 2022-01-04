@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.commonmark.ext.maths
 
-package org.matrix.android.sdk.internal.session.room.timeline
+import org.commonmark.node.CustomBlock
 
-internal data class TimelineState(
-        val hasReachedEnd: Boolean = false,
-        val hasMoreInCache: Boolean = true,
-        val isPaginating: Boolean = false,
-        val requestedPaginationCount: Int = 0
-)
+class DisplayMaths(private val delimiter: DisplayDelimiter) : CustomBlock() {
+    enum class DisplayDelimiter {
+        DOUBLE_DOLLAR,
+        SQUARE_BRACKET_ESCAPED
+    }
+}
