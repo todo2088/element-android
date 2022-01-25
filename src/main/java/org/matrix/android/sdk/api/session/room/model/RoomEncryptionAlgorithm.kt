@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.room.model.message
+package org.matrix.android.sdk.api.session.room.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import org.matrix.android.sdk.internal.crypto.MXCRYPTO_ALGORITHM_MEGOLM
 
-@JsonClass(generateAdapter = true)
-data class PollCreationInfo(
-    @Json(name = "question") val question: PollQuestion? = null,
-    @Json(name = "kind") val kind: PollType? = PollType.DISCLOSED,
-    @Json(name = "max_selections") val maxSelections: Int = 1,
-    @Json(name = "answers") val answers: List<PollAnswer>? = null
-)
+sealed class RoomEncryptionAlgorithm {
+
+    abstract class SupportedAlgorithm(val alg: String) : RoomEncryptionAlgorithm()
+
+    object Megolm : SupportedAlgorithm(MXCRYPTO_ALGORITHM_MEGOLM)
+
+    data class UnsupportedAlgorithm(val name: String?) : RoomEncryptionAlgorithm()
+}
