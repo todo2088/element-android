@@ -1,11 +1,11 @@
 /*
- * Copyright 2020 The Matrix.org Foundation C.I.C.
+ * Copyright 2021 The Matrix.org Foundation C.I.C.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.room.model.relation
+package org.matrix.android.sdk.api.session.threads
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import org.matrix.android.sdk.api.session.room.timeline.TimelineEvent
 
-@JsonClass(generateAdapter = true)
-data class ReplyToContent(
-        @Json(name = "event_id") val eventId: String? = null,
-        @Json(name = "render_in") val renderIn: List<String>? = null
+/**
+ * This class contains a thread TimelineEvent along with a boolean that
+ * determines if the current user has participated in that event
+ */
+data class ThreadTimelineEvent(
+        val timelineEvent: TimelineEvent,
+        val isParticipating: Boolean
 )
-
-fun ReplyToContent.shouldRenderInThread(): Boolean = renderIn?.contains("m.thread") == true

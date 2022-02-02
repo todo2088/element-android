@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Matrix.org Foundation C.I.C.
+ * Copyright 2021 The Matrix.org Foundation C.I.C.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,20 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.room.model.relation
+package org.matrix.android.sdk.api.session.threads
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+/**
+ * This class defines the state of a thread notification
+ */
+enum class ThreadNotificationState {
 
-@JsonClass(generateAdapter = true)
-data class ReplyToContent(
-        @Json(name = "event_id") val eventId: String? = null,
-        @Json(name = "render_in") val renderIn: List<String>? = null
-)
+    // There are no new message
+    NO_NEW_MESSAGE,
 
-fun ReplyToContent.shouldRenderInThread(): Boolean = renderIn?.contains("m.thread") == true
+    // There is at least one new message
+    NEW_MESSAGE,
+
+    // The is at least one new message that should be highlighted
+    // ex. "Hello @aris.kotsomitopoulos"
+    NEW_HIGHLIGHTED_MESSAGE;
+}
