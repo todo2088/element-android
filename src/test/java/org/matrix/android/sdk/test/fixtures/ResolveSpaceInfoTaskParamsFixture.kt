@@ -14,17 +14,22 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.room.model.message
+package org.matrix.android.sdk.test.fixtures
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import org.matrix.android.sdk.internal.session.space.ResolveSpaceInfoTask
 
-@JsonClass(generateAdapter = true)
-data class PollAnswer(
-        @Json(name = "id") val id: String? = null,
-        @Json(name = "org.matrix.msc1767.text") val unstableAnswer: String? = null,
-        @Json(name = "m.text") val answer: String? = null
-) {
-
-    fun getBestAnswer() = answer ?: unstableAnswer
+internal object ResolveSpaceInfoTaskParamsFixture {
+    fun aResolveSpaceInfoTaskParams(
+            spaceId: String = "",
+            limit: Int? = null,
+            maxDepth: Int? = null,
+            from: String? = null,
+            suggestedOnly: Boolean? = null,
+    ) = ResolveSpaceInfoTask.Params(
+            spaceId,
+            limit,
+            maxDepth,
+            from,
+            suggestedOnly,
+    )
 }
