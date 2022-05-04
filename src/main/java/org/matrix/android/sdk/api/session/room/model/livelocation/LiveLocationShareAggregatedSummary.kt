@@ -1,11 +1,11 @@
 /*
- * Copyright 2020 The Matrix.org Foundation C.I.C.
+ * Copyright (c) 2022 The Matrix.org Foundation C.I.C.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.matrix.android.sdk.api.session.room.model
 
-import org.matrix.android.sdk.api.session.events.model.Content
+package org.matrix.android.sdk.api.session.room.model.livelocation
+
+import org.matrix.android.sdk.api.session.room.model.message.MessageBeaconLocationDataContent
 
 /**
- * Events can relates to other events, this object keeps a summary
- * of all events that are referencing the 'eventId' event via the RelationType.REFERENCE
+ * Aggregation info concerning a live location share.
  */
-data class ReferencesAggregatedSummary(
-        val content: Content?,
-        val sourceEvents: List<String>,
-        val localEchos: List<String>
+data class LiveLocationShareAggregatedSummary(
+        val isActive: Boolean?,
+        val endOfLiveTimestampMillis: Long?,
+        val lastLocationDataContent: MessageBeaconLocationDataContent?,
 )
