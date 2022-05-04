@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Matrix.org Foundation C.I.C.
+ * Copyright (c) 2021 The Matrix.org Foundation C.I.C.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.securestorage
+package org.matrix.android.sdk.api.util
 
-import java.io.InputStream
-import java.io.OutputStream
-
-interface SecureStorageService {
-
-    fun securelyStoreObject(any: Any, keyAlias: String, outputStream: OutputStream)
-
-    fun <T> loadSecureSecret(inputStream: InputStream, keyAlias: String): T?
+interface BuildVersionSdkIntProvider {
+    /**
+     * Return the current version of the Android SDK.
+     */
+    fun get(): Int
 }

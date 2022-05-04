@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.internal.util.system
+package org.matrix.android.sdk.api.util
 
-internal interface BuildVersionSdkIntProvider {
-    /**
-     * Return the current version of the Android SDK.
-     */
-    fun get(): Int
+import android.os.Build
+import javax.inject.Inject
+
+class DefaultBuildVersionSdkIntProvider @Inject constructor() :
+        BuildVersionSdkIntProvider {
+    override fun get() = Build.VERSION.SDK_INT
 }
