@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Matrix.org Foundation C.I.C.
+ * Copyright (c) 2022 The Matrix.org Foundation C.I.C.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,20 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.internal.crypto
+package org.matrix.android.sdk.api.session.crypto
 
-internal interface IncomingShareRequestCommon {
-    /**
-     * The user id
-     */
-    val userId: String?
+enum class OutgoingRoomKeyRequestState {
+    UNSENT,
+    SENT,
+    SENT_THEN_CANCELED,
+    CANCELLATION_PENDING,
+    CANCELLATION_PENDING_AND_WILL_RESEND;
 
-    /**
-     * The device id
-     */
-    val deviceId: String?
-
-    /**
-     * The request id
-     */
-    val requestId: String?
-
-    val localCreationTimestamp: Long?
+    companion object {
+        fun pendingStates() = setOf(
+                UNSENT,
+                CANCELLATION_PENDING_AND_WILL_RESEND,
+                CANCELLATION_PENDING
+        )
+    }
 }
