@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Matrix.org Foundation C.I.C.
+ * Copyright 2022 The Matrix.org Foundation C.I.C.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.session.group
+package org.matrix.android.sdk.api.session.room.model.localecho
 
-/**
- * This interface defines methods to interact within a group.
- */
-interface Group {
-    val groupId: String
+import java.util.UUID
+
+object RoomLocalEcho {
+
+    private const val PREFIX = "!local."
 
     /**
-     * This methods allows you to refresh data about this group. It will be reflected on the GroupSummary.
-     * The SDK also takes care of refreshing group data every hour.
-     * @return a Cancelable to be able to cancel requests.
+     * Tell whether the provider room id is a local id.
      */
-    suspend fun fetchGroupData()
+    fun isLocalEchoId(roomId: String) = roomId.startsWith(PREFIX)
+
+    internal fun createLocalEchoId() = "${PREFIX}${UUID.randomUUID()}"
 }
