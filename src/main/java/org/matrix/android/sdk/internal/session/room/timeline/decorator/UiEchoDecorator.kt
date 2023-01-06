@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Matrix.org Foundation C.I.C.
+ * Copyright (c) 2022 The Matrix.org Foundation C.I.C.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.test.fakes
+package org.matrix.android.sdk.internal.session.room.timeline.decorator
 
-import io.mockk.coEvery
-import io.mockk.mockk
-import org.matrix.android.sdk.internal.session.filter.FilterRepository
+import org.matrix.android.sdk.api.session.room.timeline.TimelineEvent
+import org.matrix.android.sdk.internal.session.room.timeline.UIEchoManager
 
-internal class FakeFilterRepository : FilterRepository by mockk() {
+internal class UiEchoDecorator(private val uiEchoManager: UIEchoManager?) : TimelineEventDecorator {
 
-    fun givenFilterStored(filterId: String?, filterBody: String?) {
-        coEvery { getStoredSyncFilterId() } returns filterId
-        coEvery { getStoredSyncFilterBody() } returns filterBody
+    override fun decorate(timelineEvent: TimelineEvent): TimelineEvent {
+        return uiEchoManager?.decorateEventWithReactionUiEcho(timelineEvent) ?: timelineEvent
     }
 }
