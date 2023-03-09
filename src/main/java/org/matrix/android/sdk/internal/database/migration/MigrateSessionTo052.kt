@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 The Matrix.org Foundation C.I.C.
+ * Copyright (c) 2023 New Vector Ltd
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,15 @@
 package org.matrix.android.sdk.internal.database.migration
 
 import io.realm.DynamicRealm
-import org.matrix.android.sdk.internal.database.model.HomeServerCapabilitiesEntityFields
-import org.matrix.android.sdk.internal.extensions.forceRefreshOfHomeServerCapabilities
+import org.matrix.android.sdk.internal.database.model.EventEntityFields
 import org.matrix.android.sdk.internal.util.database.RealmMigrator
 
-internal class MigrateSessionTo051(realm: DynamicRealm) : RealmMigrator(realm, 51) {
+internal class MigrateSessionTo052(realm: DynamicRealm) : RealmMigrator(realm, 52) {
+
     override fun doMigrate(realm: DynamicRealm) {
-        realm.schema.get("HomeServerCapabilitiesEntity")
-                ?.addField(HomeServerCapabilitiesEntityFields.EXTERNAL_ACCOUNT_MANAGEMENT_URL, String::class.java)
-                ?.forceRefreshOfHomeServerCapabilities()
+        realm.schema.get("EventEntity")
+                ?.addField(EventEntityFields.IS_VERIFICATION_STATE_DIRTY, Boolean::class.java)
+                ?.setNullable(EventEntityFields.IS_VERIFICATION_STATE_DIRTY, true)
     }
 }
+
